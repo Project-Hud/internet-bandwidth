@@ -6,6 +6,8 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
+  , getData = require('./lib/get-data')
+  , processData = require('./lib/process-data')
   , app = express()
 
 // all environments
@@ -25,8 +27,18 @@ if ('development' === app.get('env')) {
   app.use(express.errorHandler())
 }
 
+var url = process.env.DATA_URL
+
 app.get('/', function (req, res) {
-  res.render('index', { title: 'Express' })
+  res.render('index')
+})
+
+app.get('/get-bandwidth', function (req, res) {
+  getData(url, function (error, data) {
+    if (error) console.warn(error)
+
+    res.json(processData(data))
+  })
 })
 
 http.createServer(app).listen(app.get('port'), function(){
