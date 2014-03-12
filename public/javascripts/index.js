@@ -7,11 +7,12 @@
     var res
     try {
       res = JSON.parse(request.response)
-      console.log(res)
     } catch (err){
       console.log(err)
     }
 
+
+    needle.animateOn(chart, .09 * res.download)
     document.getElementsByClassName('js-download')[0].innerHTML = res.download + ' MB/S'
     document.getElementsByClassName('js-upload')[0].innerHTML = res.upload + ' MB/S'
   }
@@ -20,10 +21,9 @@
   request.send()
 
   setInterval(function () {
-    console.log(1)
     request.open('GET', '/get-bandwidth', true)
     request.send()
-  }, 30000)
+  }, 3000)
 
 
   var Needle
@@ -57,7 +57,7 @@
 
   barWidth = 40;
 
-  numSections = 32;
+  numSections = 10;
 
   sectionPerc = 1 / numSections / 2;
 
@@ -122,7 +122,7 @@
     Needle.prototype.animateOn = function(el, perc) {
       var self;
       self = this;
-      return el.transition().delay(500).ease('bounce').duration(2000).selectAll('.needle').tween('progress', function() {
+      return el.transition().ease('ease-in').duration(1000).selectAll('.needle').tween('progress', function() {
         return function(percentOfPercent) {
           var progress;
           progress = percentOfPercent * perc;
