@@ -13,40 +13,8 @@ a {
   margin: 100px auto;
 }
 
-.chart-gauge path {
+path {
   fill: #fff;
-}
-
-.chart-color1{
-  fill: #d80101;
-}
-
-.chart-color2{
-  fill: #d80101;
-}
-
-.chart-color3{
-  fill: #d80101;
-}
-
-.chart-color4{
-  fill: #d80101;
-}
-
-.chart-color5{
-  fill: #d80101;
-}
-
-.chart-color6{
-  fill: #d80101;
-}
-
-.chart-color7{
-  fill: #d80101;
-}
-
-.chart-color8{
-  fill: #d80101;
 }
 
 .needle,

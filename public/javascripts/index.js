@@ -1,5 +1,9 @@
 (function () {
 
+
+  var numSections = 30
+
+
   var request = new XMLHttpRequest()
   request.onreadystatechange = function () {
     if (request.readyState !== 4 || request.status !== 200) return
@@ -11,8 +15,16 @@
       console.log(err)
     }
 
+    var downloadPercent = (1 / numSections) * res.download
+    if (downloadPercent > 1) downloadPercent = 1
 
-    needle.animateOn(chart, .09 * res.download)
+    needle.animateOn(chart, downloadPercent)
+    document.getElementsByClassName('arc')[0].style.fill = '#ffffff'
+
+    for (var i = 0; i < res.download; i++) {
+      document.getElementsByClassName('chart-color'+(i+1))[0].style.fill = '#d80101'
+    }
+
     document.getElementsByClassName('js-download')[0].innerHTML = res.download + ' MB/S'
     document.getElementsByClassName('js-upload')[0].innerHTML = res.upload + ' MB/S'
   }
@@ -23,7 +35,7 @@
   setInterval(function () {
     request.open('GET', '/get-bandwidth', true)
     request.send()
-  }, 3000)
+  }, 500)
 
 
   var Needle
@@ -39,7 +51,6 @@
     , height
     , margin
     , needle
-    , numSections
     , padRad
     , percToDeg
     , percToRad
@@ -56,8 +67,6 @@
   percent = 1;
 
   barWidth = 40;
-
-  numSections = 10;
 
   sectionPerc = 1 / numSections / 2;
 
@@ -122,7 +131,7 @@
     Needle.prototype.animateOn = function(el, perc) {
       var self;
       self = this;
-      return el.transition().ease('ease-in').duration(1000).selectAll('.needle').tween('progress', function() {
+      return el.transition().ease('ease-in').duration(300).selectAll('.needle').tween('progress', function() {
         return function(percentOfPercent) {
           var progress;
           progress = percentOfPercent * perc;
