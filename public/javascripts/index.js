@@ -1,13 +1,14 @@
 (function () {
 
 
-  var numSections = 30
-    , request = new XMLHttpRequest()
+  var maxMB = 25
     , $download = document.getElementsByClassName('js-download')[0]
     , $upload = document.getElementsByClassName('js-upload')[0]
     , $highest = document.getElementsByClassName('js-highest')[0]
     , MBformat = ' MB/S'
+    , currentDownload = 0
 
+  var request = new XMLHttpRequest()
   request.onreadystatechange = function () {
     if (request.readyState !== 4 || request.status !== 200) return
 
@@ -20,14 +21,18 @@
 
     // This line creates pseudo integers
     // It should NOT be used in production
-    res.download = Math.floor(Math.random() * 30) + 1
+    res.download = Math.floor(Math.random() * maxMB) + 1
 
-    var downloadPercent = (1 / numSections) * res.download
+    if(res.download === currentDownload) return
+
+    currentDownload = res.download
+
+    var downloadPercent = (1 / maxMB) * res.download
     if (downloadPercent > 1) downloadPercent = 1
 
     needle.animateOn(chart, downloadPercent)
 
-    for (var i = 0; i < numSections; i++) {
+    for (var i = 0; i < maxMB; i++) {
       var fill = '#ffffff'
       if (i < res.download) fill = '#d80101'
       document.getElementsByClassName('chart-color'+(i+1))[0].style.fill = fill
@@ -79,7 +84,7 @@
 
   percent = 1
   barWidth = 40
-  sectionPerc = 1 / numSections / 2
+  sectionPerc = 1 / maxMB / 2
   padRad = 0.05
   chartInset = 10
   totalPercent = 0.75
@@ -101,12 +106,12 @@
   svg = el.append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom)
   chart = svg.append('g').attr('transform', 'translate(' + ((width + margin.left) / 2) + ', ' + ((height + margin.top) / 2) + ')')
 
-  for (sectionIndx = _i = 1; 1 <= numSections ? _i <= numSections : _i >= numSections; sectionIndx = 1 <= numSections ? ++_i : --_i) {
+  for (sectionIndx = _i = 1; 1 <= maxMB ? _i <= maxMB : _i >= maxMB; sectionIndx = 1 <= maxMB ? ++_i : --_i) {
     arcStartRad = percToRad(totalPercent)
     arcEndRad = arcStartRad + percToRad(sectionPerc)
     totalPercent += sectionPerc
     startPadRad = sectionIndx === 0 ? 0 : padRad / 2
-    endPadRad = sectionIndx === numSections ? 0 : padRad / 2
+    endPadRad = sectionIndx === maxMB ? 0 : padRad / 2
     arc = d3.svg.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad)
     chart.append('path').attr('class', 'arc chart-color' + sectionIndx).attr('d', arc)
   }
