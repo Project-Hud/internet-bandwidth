@@ -21,7 +21,7 @@
 
     // This line creates pseudo integers
     // It should NOT be used in production
-    res.download = Math.floor(Math.random() * maxMB) + 1
+    // res.download = Math.floor(Math.random() * maxMB) + 1
 
     if(res.download === currentDownload) return
 
