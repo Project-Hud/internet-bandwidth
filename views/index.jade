@@ -2,8 +2,15 @@ extends layout
 
 block content
   h1 Internet Bandwidth
-  .js-download 0 MB/S
-  .js-upload 0 MB/S
+  .download
+    span Download: 
+    span.js-download 0 MB/S
+  .download
+    span Upload: 
+    span.js-upload 0 MB/S
+  .highest
+    span Download: 
+    span.js-highest 0 MB/S
 
   .chart-gauge
 
