@@ -139,10 +139,10 @@
     var uploadPercent = (1 / uploadMax) * res.upload
     if (uploadPercent > 1) uploadPercent = 1
     upload[0].animateOn(upload[1], uploadPercent)
-    for (var u = 0; u < uploadMax; u++) {
-      fill = '#ffffff'
-      if (u < res.upload) fill = colorUpload
-      document.querySelector('.chart-gauge--upload .chart-color'+(u+1)).style.fill = fill
+    for (var u = uploadMax; u > 0; u--) {
+      fill = colorUpload
+      if (u > res.upload) fill = '#ffffff'
+      document.querySelector('.chart-gauge--upload .chart-color'+u).style.fill = fill
     }
     $upload.innerHTML = res.upload + MBformat
 
