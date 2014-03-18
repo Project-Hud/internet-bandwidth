@@ -1,0 +1,10 @@
+body{font:14px "Lucida Grande",Helvetica,Arial,sans-serif;background-color:#000;color:#fff}
+.highest,h1{display:none}
+path,.needle,.needle-center{fill:#fff}
+.chart-gauge{width:350px;height:200px;position:relative}
+.chart-gauge--upload{position:absolute;top:-115px;left:160px}
+.chart-gauge--download{position:absolute;top:10px;left:-20px}
+.chart-gauge--upload .gauge-speed{top:64px;font-size:11px}
+.gauge-speed{width:80px;height:80px;background-color:#000;position:absolute;top:90px;left:85px;border-radius:50%;text-align:center}
+.gauge-speed span{position:absolute;top:20px;width:100%;left:0}
+.chart-gauge--upload .gauge-speed span{top:58px}
