@@ -2,10 +2,18 @@ extends layout
 
 block content
   h1 Internet Bandwidth
-  .js-download 0 MB/S
-  .js-upload 0 MB/S
 
-  .chart-gauge
+  .highest
+    span.js-highest 0 MB/S
+
+  .chart-gauge.chart-gauge--download
+    .gauge-speed
+      span.js-download 0 MB/S
+
+  .chart-gauge.chart-gauge--upload
+    .gauge-speed
+      span.js-upload 0 MB/S
+
 
   script(src='http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.3/d3.min.js')
   script(src='/javascripts/index.js')
