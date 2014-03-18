@@ -1,7 +1,7 @@
 (function () {
 
   var downloadMax = 30
-    , uploadMax = 20
+    , uploadMax = 15
     , colorDownload = '#99da48'
     , colorUpload = '#66bada'
     , $download = document.getElementsByClassName('js-download')[0]
@@ -14,13 +14,15 @@
     , uploadEl = d3.select('.chart-gauge--upload')
 
   var Needle = (function() {
-    function Needle(len, radius) {
+
+    function Needle(len, radius, negative) {
       this.len = len
       this.radius = radius
+      this.negative = negative
     }
 
     Needle.prototype.drawOn = function(el, perc) {
-      el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius).append('text')
+      el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius)
       return el.append('path').attr('class', 'needle').attr('d', this.mkCmd(perc))
     }
 
@@ -33,8 +35,9 @@
       })
     }
 
-    Needle.prototype.mkCmd = function(perc) {
+    Needle.prototype.mkCmd = function(perc, negative) {
       var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY
+        , perc = (this.negative) ? perc : -perc
       thetaRad = percToRad(perc / 2)
       centerX = 0
       centerY = 0
@@ -52,8 +55,8 @@
 
 
   // Initialise the gauges!
-  var download = setup(downloadEl, downloadMax)
-    , upload = setup(uploadEl, uploadMax)
+  var download = setup(downloadEl, downloadMax, 3, 0.75, false)
+    , upload = setup(uploadEl, uploadMax, 6, 0.25, true)
 
 
   function percToDeg(perc) { return perc * 360 }
@@ -61,7 +64,7 @@
   function degToRad(deg) { return deg * Math.PI / 180 }
 
   // Setup global functions & Needle prototype
-  function setup(el, max) {
+  function setup(el, max, radiusInt, angle, negative) {
 
     var arc
       , arcEndRad
@@ -77,9 +80,9 @@
       , barWidth = 20
       , chartInset = 0
       , padRad = 0.125
-      , radius = Math.min(width, height) / 3
+      , radius = Math.min(width, height) / radiusInt
       , sectionPerc = 1 / max / 2
-      , totalPercent = 0.75
+      , totalPercent = angle
       , percent = 1
 
 
@@ -96,7 +99,7 @@
       chart.append('path').attr('class', 'arc chart-color' + sectionIndx).attr('d', arc)
     }
 
-    var needle = new Needle(90, 4)
+    var needle = new Needle(90, 4, negative)
     needle.drawOn(chart, 0)
     needle.animateOn(chart, percent)
 
