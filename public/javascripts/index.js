@@ -37,7 +37,7 @@
 
     Needle.prototype.mkCmd = function(perc, negative) {
       var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY
-        , perc = (this.negative) ? perc : -perc
+        , perc = (this.negative) ? -perc : perc
       thetaRad = percToRad(perc / 2)
       centerX = 0
       centerY = 0
