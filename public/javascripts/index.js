@@ -2,6 +2,7 @@
 
 
   var maxMB = 25
+    , colorDownload = '#99da48'
     , $download = document.getElementsByClassName('js-download')[0]
     , $upload = document.getElementsByClassName('js-upload')[0]
     , $highest = document.getElementsByClassName('js-highest')[0]
@@ -34,7 +35,7 @@
 
     for (var i = 0; i < maxMB; i++) {
       var fill = '#ffffff'
-      if (i < res.download) fill = '#d80101'
+      if (i < res.download) fill = colorDownload
       document.getElementsByClassName('chart-color'+(i+1))[0].style.fill = fill
     }
 
