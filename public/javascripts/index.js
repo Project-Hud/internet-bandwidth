@@ -120,9 +120,9 @@
 
     // Testing data
     // res.download = Math.floor(Math.random() * downloadMax) + 1
-    res.upload = Math.floor(Math.random() * uploadMax) + 1
+    // res.upload = Math.floor(Math.random() * uploadMax) + 1
 
-    if(res.download === currentDownload) return
+    if(res.download === 0) res.download = 0.001
     currentDownload = res.download
     var downloadPercent = (1 / downloadMax) * res.download
     if (downloadPercent > 1) downloadPercent = 1
@@ -132,9 +132,10 @@
       if (d < res.download) fill = colorDownload
       document.querySelector('.chart-gauge--download .chart-color'+(d+1)).style.fill = fill
     }
+    res.download = Math.floor(res.download)
     $download.innerHTML = res.download + MBformat
 
-    if(res.upload === currentUpload) return
+    if(res.upload === 0) res.upload = 0.001
     currentUpload = res.upload
     var uploadPercent = (1 / uploadMax) * res.upload
     if (uploadPercent > 1) uploadPercent = 1
@@ -144,6 +145,7 @@
       if (u > Math.abs(res.upload-uploadMax)) fill = colorUpload
       document.querySelector('.chart-gauge--upload .chart-color'+u).style.fill = fill
     }
+    res.upload = Math.floor(res.upload)
     $upload.innerHTML = res.upload + MBformat
 
     if (parseInt($highest.getAttribute('data-mb'), 10) < res.download) {
