@@ -3,28 +3,42 @@ body {
   background-color: black;
   color: white;
 }
-
-.highest, h1 { display:none; }
-
-path,
-.needle,
-.needle-center { fill: #fff; }
-
+.highest, h1 {
+  display:none;
+}
+path, .needle, .needle-center {
+  fill: #fff;
+}
 .chart-gauge {
   width: 350px;
   height: 200px;
   position: relative;
 }
-.chart-gauge--upload {
+
+.chart-gauge--upload  {
+  position: absolute;
+  top:-125px;
+  left:90px;
+}
+
+.chart-gauge--download {
+  position: absolute;
+  top:35px;
+  left:-20px;
+}
+
+.chart-gauge--upload .gauge-speed {
+  top: 64px;
+  font-size: 11px;
 }
 .gauge-speed {
   width:80px;
-  height:60px;
+  height:80px;
   background-color: #000;
   position: absolute;
   top:90px;
   left:85px;
-  border-radius:50% 50% 0 0;
+  border-radius:50%;
   text-align: center;
 }
 .gauge-speed span {
@@ -32,4 +46,7 @@ path,
   top:20px;
   width:100%;
   left: 0;
+}
+.chart-gauge--upload .gauge-speed span {
+  top:58px;
 }

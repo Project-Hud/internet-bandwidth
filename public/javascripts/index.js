@@ -55,7 +55,7 @@
 
 
   // Initialise the gauges!
-  var download = setup(downloadEl, downloadMax, 3, 0.75, false)
+  var download = setup(downloadEl, downloadMax, 3.5, 0.75, false)
     , upload = setup(uploadEl, uploadMax, 6, 0.25, true)
 
 
